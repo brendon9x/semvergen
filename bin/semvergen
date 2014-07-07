@@ -15,7 +15,7 @@ class SemvergenCLI < Thor
 
   desc "publish", "Publish the gem to your gem server"
   def release
-    Semvergen.release!
+    Semvergen.release!(options)
   end
 
 end

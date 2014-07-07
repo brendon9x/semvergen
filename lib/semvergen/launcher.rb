@@ -7,7 +7,7 @@ module Semvergen
     end
 
     def release!(options={})
-      Semvergen::Release.new(gem_name, gem_server).run!(options)
+      Semvergen::Release.new(interface, gem_name, gem_server, shell, version_file).run!(options)
     end
 
     private
@@ -45,7 +45,11 @@ module Semvergen
     end
 
     def gem_server
-      File.read(gem_server_file)
+      if File.exists?(gem_server_file)
+        File.read(gem_server_file)
+      else
+        interface.fail_exit "To publish, place the url (with optional username and pass) in a .gem_server file"
+      end
     end
 
     def gem_server_file

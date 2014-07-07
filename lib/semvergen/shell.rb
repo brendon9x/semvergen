@@ -18,6 +18,10 @@ module Semvergen
       execute %Q[git commit -m "#{commit_body}"]
     end
 
+    def build_gem(gem_name)
+      execute "gem build #{gem_name}.gemspec --force"
+    end
+
     def publish(gem_name, version, gem_server)
       execute "gem inabox #{gem_name}-#{version}.gem --host #{gem_server}"
     end

@@ -2,9 +2,16 @@ module Semvergen
 
   class Release
 
-    def initialize(gem_name, gem_server)
+    extend Forwardable
+
+    def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
+
+    def initialize(interface, gem_name, gem_server, shell, version_file)
+      @interface = interface
       @gem_name = gem_name
       @gem_server = gem_server
+      @shell = shell
+      @version_file = version_file
     end
 
     def run!(options)
@@ -12,10 +19,8 @@ module Semvergen
       newline
 
       say color("Building gem: ")
-      `gem build #{@gemspec_file} --force`
+      @shell.build_gem(@gem_name)
       say color("OK", :green, :bold)
-
-      fail_exit("Need .gem_server file in current dir (with full URL) to release gem") unless File.exist? gem_server_file
 
       say color("Publishing: ")
       @shell.publish(@gem_name, @version_file.version, @gem_server)
