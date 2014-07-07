@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+$:.push File.expand_path("../../lib", __FILE__)
+
+require 'thor'
+require 'semvergen'
+
+class SemvergenCLI < Thor
+
+  desc "bump", "Bump the version of this gem"
+  option :ignore_dirty, type: :boolean, banner: "Skip the git-index-dirty check"
+  def bump
+    Semvergen.bump!(options)
+  end
+
+  desc "publish", "Publish the gem to your gem server"
+  def release
+    Semvergen.release!
+  end
+
+end
+
+SemvergenCLI.start(ARGV)
