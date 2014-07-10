@@ -110,7 +110,7 @@ module Semvergen
 
           newline
 
-          say color("To release, use rake release", :bold, :green)
+          say color("To release, use semvergen release", :bold, :green)
         end
       end
     end
