@@ -1,5 +1,10 @@
 # Changelog
 
+# 1.1.0
+* Push to origin in bump step
+* Release in bump step
+
+
 # 1.0.0
 * Bump to version 1
 
