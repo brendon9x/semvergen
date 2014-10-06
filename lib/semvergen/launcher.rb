@@ -3,7 +3,7 @@ module Semvergen
   class Launcher
 
     def bump!(options={})
-      Semvergen::Bump.new(interface, version_file, change_log_file, shell).run!(options)
+      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server).run!(options)
     end
 
     def release!(options={})
