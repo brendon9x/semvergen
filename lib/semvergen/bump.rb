@@ -16,11 +16,13 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, change_log_file, shell)
+    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server)
       @interface = interface
       @version_file = version_file
       @change_log_file = change_log_file
       @shell = shell
+      @gem_name = gem_name
+      @gem_server = gem_server
     end
 
     def run!(options)
@@ -108,10 +110,24 @@ module Semvergen
 
           @shell.commit(@version_file.path, new_version, commit_message, features)
 
+          @shell.push
+
+          newline
+        end
+
+        if agree("Release? ")
+          say "Found gemspec: #{color(@gem_name, :green)}"
           newline
 
-          say color("To release, use semvergen release", :bold, :green)
+          say color("Building gem: ")
+          @shell.build_gem(@gem_name)
+          say color("OK", :green, :bold)
+
+          say color("Publishing: ")
+          @shell.publish(@gem_name, @version_file.version, @gem_server)
+          say color("OK", :green, :bold)
         end
+
       end
     end
 

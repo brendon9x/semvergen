@@ -18,6 +18,10 @@ module Semvergen
       execute %Q[git commit -m "#{commit_body}"]
     end
 
+    def push(remote_name="origin", branch_name="master")
+      execute "git push #{remote_name} #{branch_name}"
+    end
+
     def build_gem(gem_name)
       execute "gem build #{gem_name}.gemspec --force"
     end
