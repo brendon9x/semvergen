@@ -7,7 +7,7 @@ module Semvergen
     end
 
     def version
-      if file.read =~ /VERSION = "(\d+\.\d+\.\d+)"/
+      if file.read =~ /VERSION\s*=\s*["'](\d+\.\d+\.\d+)["']/
         $1
       else
         raise "Don't understand version"
