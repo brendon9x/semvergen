@@ -9,6 +9,11 @@ SimpleCov.start do
   add_filter "/vendor/bundle"
 end
 
+if ENV['CIRCLE_ARTIFACTS']
+  dir = File.join("..", "..", "..", ENV['CIRCLE_ARTIFACTS'], "coverage")
+  SimpleCov.coverage_dir(dir)
+end
+
 require 'semvergen'
 
 RSpec.configure do |config|
