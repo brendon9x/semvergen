@@ -1,5 +1,15 @@
 # Changelog
 
+# 1.3.0
+* Check for version file being readable
+* Better regex for detecting version number
+* Warning if you're not on master
+* Fail unless there's a tracking branch
+* Ensure you're uptodate with origin
+* Tag the version as well
+* Slack notifications
+
+
 # 1.2.0
 * Foo
 
