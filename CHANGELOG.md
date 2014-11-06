@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.4.0
+* Annotate git tags
+
+
 # 1.3.0
 * Check for version file being readable
 * Better regex for detecting version number
