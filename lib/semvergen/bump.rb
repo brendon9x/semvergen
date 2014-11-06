@@ -26,6 +26,13 @@ module Semvergen
     end
 
     def run!(options)
+      unless @shell.current_branch == "master"
+        say color("You are not on master. It is not recommended to create releases from a branch", :red)
+        newline
+        return unless agree("Proceed anyway? ")
+        newline
+      end
+
       if @shell.git_index_dirty? && !options[:ignore_dirty]
         say color("Git index dirty. Commit changes before continuing", :red, :bold)
       else

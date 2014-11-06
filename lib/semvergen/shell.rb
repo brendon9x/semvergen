@@ -10,6 +10,10 @@ module Semvergen
       execute("git status --porcelain") =~ /^\s*(D|M|A|R|C)\s/
     end
 
+    def current_branch
+      execute("git symbolic-ref --short HEAD").strip
+    end
+
     def commit(version_path, new_version, commit_subject, features)
       commit_body = COMMIT_MESSAGE % [new_version, commit_subject, features.join("\n")]
 
