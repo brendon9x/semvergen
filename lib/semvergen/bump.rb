@@ -16,13 +16,14 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server)
+    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier)
       @interface = interface
       @version_file = version_file
       @change_log_file = change_log_file
       @shell = shell
       @gem_name = gem_name
       @gem_server = gem_server
+      @notifier = notifier
     end
 
     def run!(options)
@@ -148,6 +149,8 @@ module Semvergen
           say color("Publishing: ")
           @shell.publish(@gem_name, @version_file.version, @gem_server)
           say color("OK", :green, :bold)
+
+          @notifier.gem_published(@gem_name, new_version, change_log_message)
         end
 
       end

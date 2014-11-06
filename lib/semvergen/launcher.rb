@@ -3,7 +3,7 @@ module Semvergen
   class Launcher
 
     def bump!(options={})
-      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server).run!(options)
+      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
     end
 
     private
@@ -69,6 +69,17 @@ module Semvergen
     def config_path
       File.join(".semvergen")
     end
+
+    def notifier
+      if config["slack"]
+        require 'semvergen/slack_notifier'
+        SlackNotifier.new config["slack"]
+      else
+        require 'semvergen/null_notifier'
+        NullNotifier.new
+      end
+    end
+
   end
 
 end
