@@ -14,6 +14,10 @@ module Semvergen
       execute("git symbolic-ref --short HEAD").strip
     end
 
+    def git_branch_is_tracking?
+      `git rev-list HEAD..@{u} --count` and return $?.exitstatus == 0
+    end
+
     def commit(version_path, new_version, commit_subject, features)
       commit_body = COMMIT_MESSAGE % [new_version, commit_subject, features.join("\n")]
 

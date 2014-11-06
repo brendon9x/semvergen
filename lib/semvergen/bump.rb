@@ -33,6 +33,10 @@ module Semvergen
         newline
       end
 
+      unless @shell.git_branch_is_tracking?
+        @interface.fail_exit color("This branch is not tracking a remote branch. Aborting...", :red)
+      end
+
       if @shell.git_index_dirty? && !options[:ignore_dirty]
         say color("Git index dirty. Commit changes before continuing", :red, :bold)
       else
