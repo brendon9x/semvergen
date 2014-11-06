@@ -3,13 +3,17 @@ module Semvergen
   class Launcher
 
     def bump!(options={})
-      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server).run!(options)
+      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
     end
 
     private
 
     def version_file
-      VersionFile.new(File.open(version_path, "r+"))
+      if File.exist? version_path
+        VersionFile.new(File.open(version_path, "r+"))
+      else
+        interface.fail_exit "A bundler style version file should be found at #{version_path}"
+      end
     end
 
     def change_log_file
@@ -43,6 +47,8 @@ module Semvergen
     def gem_server
       if File.exists?(gem_server_file)
         File.read(gem_server_file)
+      elsif (gem_server = config["gemserver"])
+        gem_server
       else
         interface.fail_exit "To publish, place the url (with optional username and pass) in a .gem_server file"
       end
@@ -50,6 +56,28 @@ module Semvergen
 
     def gem_server_file
       File.join(".gem_server")
+    end
+
+    def config
+      @config ||= if File.exist?(config_path)
+        YAML.load_file(config_path)
+      else
+        {}
+      end
+    end
+
+    def config_path
+      File.join(".semvergen")
+    end
+
+    def notifier
+      if config["slack"]
+        require 'semvergen/slack_notifier'
+        SlackNotifier.new config["slack"]
+      else
+        require 'semvergen/null_notifier'
+        NullNotifier.new
+      end
     end
 
   end

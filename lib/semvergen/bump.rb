@@ -16,20 +16,43 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server)
+    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier)
       @interface = interface
       @version_file = version_file
       @change_log_file = change_log_file
       @shell = shell
       @gem_name = gem_name
       @gem_server = gem_server
+      @notifier = notifier
     end
 
     def run!(options)
+      unless @shell.current_branch == "master"
+        say color("You are not on master. It is not recommended to create releases from a branch", :red)
+        newline
+        return unless agree("Proceed anyway? ")
+        newline
+      end
+
+      unless @shell.git_branch_is_tracking?
+        @interface.fail_exit color("This branch is not tracking a remote branch. Aborting...", :red)
+      end
+
+      say "Checking for upstream changes..."
+      @shell.git_fetch
+      newline
+
+      unless @shell.git_up_to_date?
+        @interface.fail_exit color("This branch is not up to date with upstream", :red)
+      end
+
+      say "Git status: #{color("Up to date", :green)}"
+      newline
+
       if @shell.git_index_dirty? && !options[:ignore_dirty]
         say color("Git index dirty. Commit changes before continuing", :red, :bold)
       else
-        say color("Cut new Quattro Release", :white, :underline, :bold)
+        say color("Cut new #{@gem_name} Release", :white, :underline, :bold)
 
         newline
 
@@ -110,7 +133,7 @@ module Semvergen
 
           @shell.commit(@version_file.path, new_version, commit_message, features)
 
-          @shell.push
+          @shell.push(new_version)
 
           newline
         end
@@ -126,6 +149,8 @@ module Semvergen
           say color("Publishing: ")
           @shell.publish(@gem_name, @version_file.version, @gem_server)
           say color("OK", :green, :bold)
+
+          @notifier.gem_published(@gem_name, new_version, features.join("\n"))
         end
 
       end

@@ -12,12 +12,7 @@ class SemvergenCLI < Thor
   def bump
     Semvergen.bump!(options)
   end
-
-  desc "publish", "Publish the gem to your gem server"
-  def release
-    Semvergen.release!(options)
-  end
-
+  
 end
 
 SemvergenCLI.start(ARGV)

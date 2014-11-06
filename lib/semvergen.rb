@@ -7,6 +7,8 @@ require "semvergen/change_log_file"
 require "semvergen/shell"
 require "semvergen/version_file"
 
+require "yaml"
+
 module Semvergen
 
   def self.bump!(options)

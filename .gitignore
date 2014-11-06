@@ -35,3 +35,5 @@ build/
 .rvmrc
 
 .gem_server
+.semvergen
+Gemfile.lock
