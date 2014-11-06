@@ -37,6 +37,17 @@ module Semvergen
         @interface.fail_exit color("This branch is not tracking a remote branch. Aborting...", :red)
       end
 
+      say "Checking for upstream changes..."
+      @shell.git_fetch
+      newline
+
+      unless @shell.git_up_to_date?
+        @interface.fail_exit color("This branch is not up to date with upstream", :red)
+      end
+
+      say "Git status: #{color("Up to date", :green)}"
+      newline
+
       if @shell.git_index_dirty? && !options[:ignore_dirty]
         say color("Git index dirty. Commit changes before continuing", :red, :bold)
       else

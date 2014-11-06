@@ -14,8 +14,16 @@ module Semvergen
       execute("git symbolic-ref --short HEAD").strip
     end
 
+    def git_fetch
+      `git fetch -q`
+    end
+
     def git_branch_is_tracking?
       `git rev-list HEAD..@{u} --count` and return $?.exitstatus == 0
+    end
+
+    def git_up_to_date?
+      `git rev-list HEAD..@{u} --count`.strip.to_i == 0
     end
 
     def commit(version_path, new_version, commit_subject, features)
