@@ -150,7 +150,7 @@ module Semvergen
           @shell.publish(@gem_name, @version_file.version, @gem_server)
           say color("OK", :green, :bold)
 
-          @notifier.gem_published(@gem_name, new_version, change_log_message)
+          @notifier.gem_published(@gem_name, new_version, features.join("\n"))
         end
 
       end
