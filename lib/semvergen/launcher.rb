@@ -43,6 +43,8 @@ module Semvergen
     def gem_server
       if File.exists?(gem_server_file)
         File.read(gem_server_file)
+      elsif (gem_server = config["gemserver"])
+        gem_server
       else
         interface.fail_exit "To publish, place the url (with optional username and pass) in a .gem_server file"
       end
@@ -52,6 +54,17 @@ module Semvergen
       File.join(".gem_server")
     end
 
+    def config
+      @config ||= if File.exist?(config_path)
+        YAML.load_file(config_path)
+      else
+        {}
+      end
+    end
+
+    def config_path
+      File.join(".semvergen")
+    end
   end
 
 end
