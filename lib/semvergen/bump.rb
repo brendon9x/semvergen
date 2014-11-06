@@ -132,7 +132,7 @@ module Semvergen
 
           @shell.commit(@version_file.path, new_version, commit_message, features)
 
-          @shell.push
+          @shell.push(new_version)
 
           newline
         end

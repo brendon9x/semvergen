@@ -32,10 +32,11 @@ module Semvergen
       execute "git add CHANGELOG.md"
       execute "git add #{version_path}"
       execute %Q[git commit -m "#{commit_body}"]
+      execute %Q[git tag #{new_version} -m "Version: #{new_version} - #{commit_subject}"]
     end
 
-    def push(remote_name="origin", branch_name="master")
-      execute "git push #{remote_name} #{branch_name}"
+    def push(new_version, remote_name="origin", branch_name="master")
+      execute "git push -q #{remote_name} #{branch_name} #{new_version}"
     end
 
     def build_gem(gem_name)
