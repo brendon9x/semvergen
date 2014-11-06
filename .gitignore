@@ -36,3 +36,4 @@ build/
 
 .gem_server
 .semvergen
+Gemfile.lock
