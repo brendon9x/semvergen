@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.2.0
+* Foo
+
+
 # 1.1.0
 * Push to origin in bump step
 * Release in bump step
