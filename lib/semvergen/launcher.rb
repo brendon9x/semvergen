@@ -9,7 +9,11 @@ module Semvergen
     private
 
     def version_file
-      VersionFile.new(File.open(version_path, "r+"))
+      if File.exist? version_path
+        VersionFile.new(File.open(version_path, "r+"))
+      else
+        interface.fail_exit "A bundler style version file should be found at #{version_path}"
+      end
     end
 
     def change_log_file
