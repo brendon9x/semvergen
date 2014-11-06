@@ -51,7 +51,7 @@ module Semvergen
       if @shell.git_index_dirty? && !options[:ignore_dirty]
         say color("Git index dirty. Commit changes before continuing", :red, :bold)
       else
-        say color("Cut new Quattro Release", :white, :underline, :bold)
+        say color("Cut new #{@gem_name} Release", :white, :underline, :bold)
 
         newline
 
