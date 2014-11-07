@@ -48,7 +48,7 @@ module Semvergen
     end
 
     def cleanup(gem_name, version)
-      execute "rm #{gem_name}-#{version}.gem}"
+      execute "rm #{gem_name}-#{version}.gem"
     end
 
     private
