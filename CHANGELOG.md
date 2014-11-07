@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.4.3
+* Bugfix
+
+
 # 1.4.2
 * Change way stuff is cleaned up
 
