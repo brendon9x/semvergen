@@ -151,6 +151,8 @@ module Semvergen
           say color("OK", :green, :bold)
 
           @notifier.gem_published(@gem_name, new_version, features.join("\n"))
+
+          @shell.cleanup(@gem_name, new_version) rescue say color("Unable to cleanup", :red)
         end
 
       end

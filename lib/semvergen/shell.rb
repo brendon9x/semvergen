@@ -47,6 +47,10 @@ module Semvergen
       execute "gem inabox #{gem_name}-#{version}.gem --host #{gem_server}"
     end
 
+    def cleanup(gem_name, version)
+      File.delete("#{gem_name}-#{version}.gem}")
+    end
+
     private
 
     def execute(command)
