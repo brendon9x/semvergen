@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.4.2
+* Change way stuff is cleaned up
+
+
 # 1.4.1
 * Cleanup gem after release
 
