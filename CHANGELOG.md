@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.4.1
+* Cleanup gem after release
+
+
 # 1.4.0
 * Annotate git tags
 
