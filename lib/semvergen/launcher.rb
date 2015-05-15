@@ -6,6 +6,10 @@ module Semvergen
       Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
     end
 
+    def release!(options={})
+      Semvergen::Release.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
+    end
+
     private
 
     def version_file
