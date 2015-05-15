@@ -26,8 +26,8 @@ module Semvergen
     def features_for_version(version)
       lines = File.readlines(@change_log_filename).map { |l| l.chomp }
       features = lines.slice_before(/^#/).select { |a| a.first == "# #{version}" }.first[1..-1]
-      features.map do |feature|
-        feature.gsub("* ", "") if !feature.empty?
+      features.select do |feature|
+        !feature.empty?
       end.compact
     end
 

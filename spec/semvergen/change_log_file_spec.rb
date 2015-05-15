@@ -9,7 +9,7 @@ describe Semvergen::ChangeLogFile do
     context "latest version" do
 
       it "returns the correct features" do
-        expect(changelog_file.features).to include("Feature 1", "Feature 2", "Feature 3")
+        expect(changelog_file.features).to include("* Feature 1", "* Feature 2", "* Feature 3")
       end
 
       it "does not include extra features" do
@@ -23,7 +23,7 @@ describe Semvergen::ChangeLogFile do
       let(:features) { changelog_file.features(version) }
 
       it "returns the correct features" do
-        expect(features).to include("feature", "another feature")
+        expect(features).to include("* feature", "* another feature")
       end
 
       it "does not include extra features" do
