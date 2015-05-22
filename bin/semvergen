@@ -12,6 +12,11 @@ class SemvergenCLI < Thor
   def bump
     Semvergen.bump!(options)
   end
+
+  desc "release", "Release the current version of this gem"
+  def release
+    Semvergen.release!(options)
+  end
   
 end
 
