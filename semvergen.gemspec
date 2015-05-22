@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'pry-stack_explorer'
   spec.add_development_dependency 'pry-rescue'
-
+  spec.add_development_dependency "simplecov", "~> 0.9"
 end
