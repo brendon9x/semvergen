@@ -101,11 +101,7 @@ module Semvergen
         say color("Will add the following to CHANGELOG.md", :underline)
         say color(diff_change_log)
 
-        commit_message = ask("Git commit subject line: ") do |q|
-          q.validate                 = /.{10,}/
-          q.responses[:not_valid]    = color("Message must be more than 10 chars", :red)
-          q.responses[:invalid_type] = color("Message must be more than 10 chars", :red)
-        end
+        commit_message = "Version bump: #{new_version}"
 
         newline
 
