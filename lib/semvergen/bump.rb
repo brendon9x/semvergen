@@ -119,7 +119,7 @@ module Semvergen
         say color(diff_change_log, :green)
 
         say "Staging files for commit:"
-        say color("* lib/quattro/version.rb", :green)
+        say color("* #{@version_file.path}", :green)
         say color("* CHANGELOG.md", :green)
         newline
 

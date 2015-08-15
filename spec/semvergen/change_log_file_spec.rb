@@ -1,4 +1,3 @@
-require 'debugger'
 describe Semvergen::ChangeLogFile do
 
   let(:changelog_filename) { "spec/support/CHANGELOG.md" }
