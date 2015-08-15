@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.5.0
+* Hardcode git commit subject line
+
+
 # 1.4.3
 * Bugfix
 
