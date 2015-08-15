@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.6.0
+* Make this gem work again
+
+
 # 1.5.0
 * Hardcode git commit subject line
 
