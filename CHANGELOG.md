@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.7.1
+* Bug fix branch push
+
+
 # 1.7.0
 * Support branch push
 
