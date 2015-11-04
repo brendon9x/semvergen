@@ -35,7 +35,7 @@ module Semvergen
       execute %Q[git tag #{new_version} -a -m "Version: #{new_version} - #{commit_subject}"]
     end
 
-    def push(new_version, remote_name="origin", branch_name="master")
+    def push(new_version, remote_name="origin", branch_name=current_branch)
       execute "git push -q #{remote_name} #{branch_name} #{new_version}"
     end
 
