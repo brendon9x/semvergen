@@ -28,7 +28,7 @@ module Semvergen
 
     def run!(options)
       unless @shell.current_branch == "master"
-        say color("You are not on master. It is not recommended to create releases from a branch", :red)
+        say color("You are not on master. It is not recommended to create releases from a branch unless they're maintenance releases", :red)
         newline
         return unless agree("Proceed anyway? ")
         newline
@@ -129,7 +129,7 @@ module Semvergen
 
           @shell.commit(@version_file.path, new_version, commit_message, features)
 
-          @shell.push(new_version)
+          @shell.push(new_version, @shell.current_branch)
 
           newline
         end
