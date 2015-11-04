@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.7.0
+* Support branch push
+
+
 # 1.6.0
 * Make this gem work again
 
