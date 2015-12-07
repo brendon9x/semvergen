@@ -64,7 +64,7 @@ module Semvergen
 
     def config
       @config ||= if File.exist?(config_path)
-        YAML.load_file(config_path)
+        YAML.load_file(config_path) || {}
       else
         {}
       end
