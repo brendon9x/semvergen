@@ -18,6 +18,9 @@ module Semvergen
 
     def run!(options={})
       if agree("Release? ")
+        if @gem_server == "rubygems.org" && !File.exist?(File.expand_path("~/.gem/credentials"))
+          @interface.fail_exit("Could not find rubygems.org credentials file at ~/.gem/credentials. Please make sure this file exists and that it has the correct credentials before continuing.")
+        end
         say "Found gemspec: #{color(@gem_name, :green)}"
         newline
 
