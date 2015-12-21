@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.8.0
+* Semvergen can release on rubygems.org
+
+
 # 1.7.1
 * Bug fix branch push
 
