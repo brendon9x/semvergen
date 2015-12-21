@@ -44,7 +44,11 @@ module Semvergen
     end
 
     def publish(gem_name, version, gem_server)
-      execute "gem inabox #{gem_name}-#{version}.gem --host #{gem_server}"
+      if gem_server == "rubygems.org"
+        publish_to_rubygems(gem_name, version)
+      else
+        publish_to_gemserver(gem_name, version, gem_server)
+      end
     end
 
     def cleanup(gem_name, version)
@@ -52,6 +56,14 @@ module Semvergen
     end
 
     private
+
+    def publish_to_gemserver(gem_name, version, gem_server)
+      execute "gem inabox #{gem_name}-#{version}.gem --host #{gem_server}"
+    end
+
+    def publish_to_rubygems(gem_name, version)
+      execute "gem push #{gem_name}-#{version}.gem"
+    end
 
     def execute(command)
       @execute_function[command]
