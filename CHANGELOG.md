@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.8.1
+* Enforce UTF-8 encoding on changelog file read
+
+
 # 1.8.0
 * Semvergen can release on rubygems.org
 
