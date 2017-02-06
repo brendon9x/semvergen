@@ -16,7 +16,7 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, node_version_file=nil, change_log_file, shell, gem_name, gem_server, notifier)
+    def initialize(interface, version_file, node_version_file, change_log_file, shell, gem_name, gem_server, notifier)
       @interface = interface
       @version_file = version_file
       @node_version_file = node_version_file
