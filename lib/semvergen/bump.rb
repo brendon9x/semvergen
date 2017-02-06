@@ -16,7 +16,7 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier)
+    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier, node_version_file=nil)
       @interface = interface
       @version_file = version_file
       @change_log_file = change_log_file
@@ -24,6 +24,8 @@ module Semvergen
       @gem_name = gem_name
       @gem_server = gem_server
       @notifier = notifier
+
+      @node_version_file = node_version_file
     end
 
     def run!(options)
@@ -124,6 +126,13 @@ module Semvergen
 
         if agree("Proceed? ")
           @version_file.version = new_version
+          if @node_version_file
+            @node_version_file.version = new_version
+            if @shell.publish_node_module.nil?
+              say color("NPM not found!", :underline, :red)
+              return
+            end
+          end
 
           @change_log_file << change_log_message
 

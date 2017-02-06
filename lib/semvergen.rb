@@ -8,6 +8,8 @@ require "semvergen/change_log_file"
 require "semvergen/shell"
 require "semvergen/version_file"
 
+require "semvergen/extensions/node_module/version_file"
+
 require "yaml"
 
 module Semvergen

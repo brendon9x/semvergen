@@ -3,7 +3,7 @@ module Semvergen
   class Launcher
 
     def bump!(options={})
-      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
+      Semvergen::Bump.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier, node_version_file).run!(options)
     end
 
     def release!(options={})
@@ -20,6 +20,16 @@ module Semvergen
       end
     end
 
+    def node_version_file
+      if config["node_module"]
+        if File.exist? node_version_path
+          Extensions::NodeModule::VersionFile.new(File.open(node_version_path, "r+"))
+        else
+          interface.fail_exit "A npm style version file should be found at #{node_version_path}"
+        end
+      end
+    end
+
     def change_log_file
       ChangeLogFile.new
     end
@@ -30,6 +40,10 @@ module Semvergen
 
     def version_path
       File.join("lib", gem_name, "version.rb")
+    end
+
+    def node_version_path
+      File.join("package.json")
     end
 
     def gem_name
