@@ -6,9 +6,10 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier)
+    def initialize(interface, version_file, node_version_file=nil, change_log_file, shell, gem_name, gem_server, notifier)
       @interface = interface
       @version_file = version_file
+      @node_version_file = node_version_file
       @change_log_file = change_log_file
       @shell = shell
       @gem_name = gem_name
@@ -31,6 +32,13 @@ module Semvergen
         say color("Publishing: ")
         @shell.publish(@gem_name, @version_file.version, @gem_server)
         say color("OK", :green, :bold)
+
+        if @node_version_file
+          say color("Publishing to NPM: ")
+          if @shell.publish_node_module.nil?
+            say color("Error: npm CLI not found! Please ensure that 'npm publish' runs successfully", :underline, :red)
+          end
+        end
 
         features = options[:features] || gem_features
         @notifier.gem_published(@gem_name, gem_version, features.join("\n"))
