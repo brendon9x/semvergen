@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.9.0
+* Extend gem to support optional node module bumping
+
+
 # 1.8.1
 * Enforce UTF-8 encoding on changelog file read
 
