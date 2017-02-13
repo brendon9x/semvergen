@@ -49,6 +49,9 @@ module Semvergen
       else
         publish_to_gemserver(gem_name, version, gem_server)
       end
+
+    def publish_node_module
+      execute "npm publish" rescue nil
     end
 
     def cleanup(gem_name, version)

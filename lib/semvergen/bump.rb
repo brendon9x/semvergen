@@ -16,9 +16,10 @@ module Semvergen
 
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
-    def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier)
+    def initialize(interface, version_file, node_version_file, change_log_file, shell, gem_name, gem_server, notifier)
       @interface = interface
       @version_file = version_file
+      @node_version_file = node_version_file
       @change_log_file = change_log_file
       @shell = shell
       @gem_name = gem_name
@@ -124,6 +125,9 @@ module Semvergen
 
         if agree("Proceed? ")
           @version_file.version = new_version
+          if @node_version_file
+            @node_version_file.version = new_version
+          end
 
           @change_log_file << change_log_message
 
@@ -137,6 +141,7 @@ module Semvergen
         Semvergen::Release.new(
           @interface,
           @version_file,
+          @node_version_file,
           @change_log_file,
           @shell,
           @gem_name,
