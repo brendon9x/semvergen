@@ -27,7 +27,7 @@ module Semvergen
     end
 
     def commit(version_path, new_version, commit_subject, features)
-      commit_body = COMMIT_MESSAGE % [new_version, commit_subject, features.join("\n")]
+      commit_body = commit_message(new_version, commit_subject, features.join("\n"))
 
       execute "git add CHANGELOG.md"
       execute "git add #{version_path}"
@@ -49,6 +49,7 @@ module Semvergen
       else
         publish_to_gemserver(gem_name, version, gem_server)
       end
+    end
 
     def publish_node_module
       execute "npm publish" rescue nil
@@ -78,11 +79,9 @@ module Semvergen
       result
     end
 
-    COMMIT_MESSAGE = <<-STR
-Version %s: %s
-
-%s
-    STR
+    def commit_message(new_version, commit_subject, features)
+      "Version #{new_version}: #{commit_subject}\n\n#{features}"
+    end
 
   end
 
