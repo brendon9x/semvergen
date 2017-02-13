@@ -26,11 +26,14 @@ module Semvergen
       `git rev-list HEAD..@{u} --count`.strip.to_i == 0
     end
 
-    def commit(version_path, new_version, commit_subject, features)
+    def commit(version_path, node_version_path, new_version, commit_subject, features)
       commit_body = commit_message(new_version, commit_subject, features.join("\n"))
 
       execute "git add CHANGELOG.md"
       execute "git add #{version_path}"
+      if node_version_path
+        execute "git add #{node_version_path}"
+      end
       execute %Q[git commit -m "#{commit_body}"]
       execute %Q[git tag #{new_version} -a -m "Version: #{new_version} - #{commit_subject}"]
     end

@@ -125,13 +125,16 @@ module Semvergen
 
         if agree("Proceed? ")
           @version_file.version = new_version
+
+          node_version_file_path = nil
           if @node_version_file
             @node_version_file.version = new_version
+            node_version_file_path = @node_version_file.path
           end
 
           @change_log_file << change_log_message
 
-          @shell.commit(@version_file.path, new_version, commit_message, features)
+          @shell.commit(@version_file.path, node_version_file_path, new_version, commit_message, features)
 
           @shell.push(new_version)
 
