@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.9.1
+* Stage node module's package.json for commit if the file is available
+
+
 # 1.9.0
 * Extend gem to support optional node module bumping
 
