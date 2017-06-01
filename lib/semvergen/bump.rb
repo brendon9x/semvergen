@@ -8,12 +8,6 @@ module Semvergen
     MINOR = "Minor: New features, but backwards compatible"
     MAJOR = "Major: Breaking changes"
 
-    RELEASE_TYPES = [
-      PATCH,
-      MINOR,
-      MAJOR
-    ]
-
     def_delegators :@interface, :say, :ask, :color, :choose, :newline, :agree
 
     def initialize(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier)
@@ -27,7 +21,8 @@ module Semvergen
     end
 
     def run!(options)
-      unless @shell.current_branch == "master"
+      master_release = @shell.current_branch == "master"
+      unless master_release
         say color("You are not on master. It is not recommended to create releases from a branch unless they're maintenance releases", :red)
         newline
         return unless agree("Proceed anyway? ")
@@ -56,14 +51,17 @@ module Semvergen
 
         newline
 
+        # Only patches allowed for maintenance releases
+        release_types = master_release ? [PATCH, MINOR, MAJOR] : [PATCH]
+
         release_type = choose do |menu|
           menu.header    = "Select release type"
           menu.default   = "1"
           menu.select_by = :index
-          menu.choices *RELEASE_TYPES
+          menu.choices *release_types
         end
 
-        new_version = next_version(@version_file.version, release_type)
+        new_version = next_version(@version_file.version, release_type, release_types)
 
         newline
 
@@ -147,10 +145,10 @@ module Semvergen
       end
     end
 
-    def next_version(current_version, release_type)
+    def next_version(current_version, release_type, release_types)
       version_tuples = current_version.split(".")
 
-      release_index = 2 - RELEASE_TYPES.index(release_type)
+      release_index = 2 - release_types.index(release_type)
 
       bumping   = version_tuples[release_index]
       unchanged = version_tuples[0...release_index]
