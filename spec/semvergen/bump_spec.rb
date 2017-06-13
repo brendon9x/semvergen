@@ -1,5 +1,5 @@
 describe Semvergen::Bump do
-  let(:semvergen) { Semvergen::Bump.new nil, nil, nil, nil, nil, nil, nil }
+  let(:semvergen) { Semvergen::Bump.new nil, nil, nil, nil, nil, nil, nil, nil }
 
   describe :next_version do
     let(:next_version) { semvergen.next_version current_version, release_type }
