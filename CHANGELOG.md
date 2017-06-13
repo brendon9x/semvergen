@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.9.2
+* Fix release command
+
+
 # 1.9.1
 * Stage node module's package.json for commit if the file is available
 
