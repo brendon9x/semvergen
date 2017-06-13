@@ -7,7 +7,7 @@ module Semvergen
     end
 
     def release!(options={})
-      Semvergen::Release.new(interface, version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
+      Semvergen::Release.new(interface, version_file, node_version_file, change_log_file, shell, gem_name, gem_server, notifier).run!(options)
     end
 
     private
