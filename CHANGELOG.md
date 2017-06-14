@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.10.0
+* Prevent anything except patches when not on master
+
+
 # 1.9.2
 * Fix release command
 
