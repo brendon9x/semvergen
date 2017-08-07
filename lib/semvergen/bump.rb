@@ -74,7 +74,6 @@ module Semvergen
         say "Enter change log features (or a blank line to finish):"
 
         features = []
-        features << "* Release date: #{Time.now.to_s}"
 
         while true
           response = ask "* " do |q|
@@ -92,7 +91,7 @@ module Semvergen
           end
         end
 
-        change_log_lines   = ["# #{new_version}"] + features
+        change_log_lines   = ["# #{new_version} - Release date: #{Time.now.strftime("%Y-%d-%m")}"] + features
         change_log_message = change_log_lines.join("\n")
         diff_change_log    = change_log_lines.map { |l| color("+++ ", :white) + color(l, :green) }.join("\n")
 
