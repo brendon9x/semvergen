@@ -73,7 +73,8 @@ module Semvergen
 
         say "Enter change log features (or a blank line to finish):"
 
-        features = ["Release date: #{Time.now.to_s}"]
+        features = []
+        features << "Release date: #{Time.now.to_s}"
 
         while true
           response = ask "* " do |q|
