@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.11.0 - Release date: 2017-11-08
+* Adds date to CHANGELOG title
+
+
 # 1.10.0
 * Prevent anything except patches when not on master
 
