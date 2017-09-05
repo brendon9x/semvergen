@@ -91,7 +91,7 @@ module Semvergen
           end
         end
 
-        change_log_lines   = ["# #{new_version} - Release date: #{Time.now.strftime("%Y-%d-%m")}"] + features
+        change_log_lines   = ["# #{new_version} - Release date: #{Time.now.strftime("%Y-%m-%d")}"] + features
         change_log_message = change_log_lines.join("\n")
         diff_change_log    = change_log_lines.map { |l| color("+++ ", :white) + color(l, :green) }.join("\n")
 
