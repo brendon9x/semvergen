@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.11.1 - Release date: 2017-09-05
+* Use ISO_8601 format for release date #17
+
+
 # 1.11.0 - Release date: 2017-11-08
 * Adds date to CHANGELOG title
 
