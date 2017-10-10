@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.11.2 - Release date: 2017-10-10
+* Just spec fixes
+
+
 # 1.11.1 - Release date: 2017-09-05
 * Use ISO_8601 format for release date #17
 
