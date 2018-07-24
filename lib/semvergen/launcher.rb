@@ -15,6 +15,8 @@ module Semvergen
     def version_file
       if File.exist? version_path
         VersionFile.new(File.open(version_path, "r+"))
+      elsif File.exist? nested_version_path
+        VersionFile.new(File.open(nested_version_path, "r+"))
       else
         interface.fail_exit "A bundler style version file should be found at #{version_path}"
       end
@@ -40,6 +42,10 @@ module Semvergen
 
     def version_path
       File.join("lib", gem_name, "version.rb")
+    end
+
+    def nested_version_path
+      File.join("lib", gem_name.gsub("-", "/"), "version.rb")
     end
 
     def node_version_path
