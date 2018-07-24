@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.12.0 - Release date: 2018-07-24
+* Allow nested version class
+
+
 # 1.11.2 - Release date: 2017-10-10
 * Just spec fixes
 
